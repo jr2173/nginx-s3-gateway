@@ -607,6 +607,14 @@ function _buildSignatureV4(r, amzDatetime, eightDigitDate, creds, bucket, region
         uri = s3uri(r);
     }
 
+    _debug_log(r, '\n\n\n ORIGINAL URI: ' + uri + '\n\n\n');
+
+    if (r.variables.index_html) {
+        uri = r.variables.index_html;
+
+        _debug_log(r, '\n\n\n NEW URI: ' + uri + '\n\n\n');
+    }
+
     const canonicalRequest = _buildCanonicalRequest(method, uri, queryParams, host, amzDatetime, creds.sessionToken);
 
     _debug_log(r, 'AWS v4 Auth Canonical Request: [' + canonicalRequest + ']');
