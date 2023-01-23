@@ -25,6 +25,8 @@ signature_version=$3
 allow_directory_list=$4
 index_page=$5
 append_slash=$6
+try_file_notfound=$7
+
 test_fail_exit_code=2
 no_dep_exit_code=3
 checksum_length=32
@@ -296,4 +298,10 @@ elif [ "${index_page}" == "1" ]; then
   assertHttpRequestEquals "GET" "/" "data/bucket-1/index.html"
 else
   assertHttpRequestEquals "GET" "/" "404"
+fi
+
+if [ ! -z "$try_file_notfound" ] && [ "$try_file_notfound" != "0" ]; then
+    assertHttpRequestEquals "GET" "/does-not-exist/" "200"
+    assertHttpRequestEquals "GET" "/does-not-exist/" "data/bucket-1/$try_file_notfound"
+  fi
 fi
