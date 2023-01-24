@@ -301,7 +301,6 @@ else
 fi
 
 if [ ! -z "$try_file_notfound" ] && [ "$try_file_notfound" != "0" ]; then
-    assertHttpRequestEquals "GET" "/does-not-exist/" "200"
-    assertHttpRequestEquals "GET" "/does-not-exist/" "data/bucket-1/$try_file_notfound"
-  fi
+  assertHttpRequestEquals "GET" "/does-not-exist/" "200"
+  assertHttpRequestEquals "GET" "/does-not-exist/" "data/bucket-1/$try_file_notfound"
 fi
